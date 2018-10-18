@@ -45,7 +45,7 @@ public class Planets extends Model {
     }
 
     public Planets(String id, String name, Collection<Climate> climates, Collection<Terrain> terrains) {
-        this(null, name, climates, terrains, 0);
+        this(id, name, climates, terrains, 0);
     }
 
     public Planets(String id, String name, Collection<Climate> climates, Collection<Terrain> terrains, Integer movies) {
