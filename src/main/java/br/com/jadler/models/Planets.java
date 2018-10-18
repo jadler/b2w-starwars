@@ -1,5 +1,6 @@
 package br.com.jadler.models;
 
+import br.com.jadler.annotation.RepositoryProperty;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Collection;
 
@@ -9,6 +10,7 @@ import java.util.Collection;
  * @version 1.0
  * @author <a href="mailto:jaguar.adler@gmail.com">Jaguaraquem A. Reinaldo</a>
  */
+@RepositoryProperty
 public class Planets extends Model {
 
     @ApiModelProperty(notes = "The name of the planet.", required = true)
