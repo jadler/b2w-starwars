@@ -45,6 +45,13 @@
         </dependency>
 
         <dependency>
+            <groupId>br.com.jadler</groupId>
+            <artifactId>processor</artifactId>
+            <version>0.0.1</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
