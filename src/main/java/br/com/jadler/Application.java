@@ -33,7 +33,7 @@ public class Application {
         ApiInfo info = new ApiInfoBuilder()
                 .title("B2W Digital REST API")
                 .description("\"B2W Digital REST API for Star Wars\"")
-                .version("0.0.1")
+                .version("1.0.0")
                 .build();
 
         return info;
