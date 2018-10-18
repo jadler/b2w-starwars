@@ -32,7 +32,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class PlanetsControllerIT {
+public class PlanetsControllerTest {
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
