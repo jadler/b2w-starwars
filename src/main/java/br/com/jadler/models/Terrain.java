@@ -1,8 +1,5 @@
 package br.com.jadler.models;
 
-import java.util.Arrays;
-import java.util.Optional;
-
 /**
  *
  * @since 1.0
@@ -29,20 +26,4 @@ public enum Terrain {
     ROCK,
     DESERTS,
     BARREN;
-
-    public static Terrain fromValue(String value) {
-        Optional<Terrain> terrain = Arrays.asList(values()).stream()
-                .filter(v -> v.toString().equals(value.toLowerCase()))
-                .findFirst();
-
-        return terrain.orElseThrow(() -> {
-            return new IllegalArgumentException();
-        });
-    }
-
-    @Override
-    public String toString() {
-        return this.name().toLowerCase().replaceAll("_", " ");
-    }
-
 }
