@@ -1,8 +1,11 @@
 package br.com.jadler.models;
 
-import br.com.jadler.annotation.RepositoryProperty;
+import br.com.jadler.annotation.MappedProperty;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Collection;
+import org.springframework.data.annotation.Id;
+import br.com.jadler.annotation.GenerateRepository;
+import br.com.jadler.annotation.GenerateController;
 
 /**
  *
@@ -10,9 +13,16 @@ import java.util.Collection;
  * @version 1.0
  * @author <a href="mailto:jaguar.adler@gmail.com">Jaguaraquem A. Reinaldo</a>
  */
-@RepositoryProperty
-public class Planets extends Model {
+@GenerateRepository
+@GenerateController
+public class Planets {
 
+    @Id
+    @MappedProperty
+    @ApiModelProperty(notes = "Generated database planet id.")
+    protected String id;
+
+    @MappedProperty
     @ApiModelProperty(notes = "The name of the planet.", required = true)
     private String name;
 
@@ -56,6 +66,14 @@ public class Planets extends Model {
         this.movies = movies;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public Collection<Terrain> getTerrains() {
         return terrains;
     }
@@ -87,5 +105,4 @@ public class Planets extends Model {
     public void setMovies(Integer movies) {
         this.movies = movies;
     }
-
 }
