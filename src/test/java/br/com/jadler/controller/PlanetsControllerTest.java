@@ -51,9 +51,12 @@ public class PlanetsControllerTest {
 
         planets = new ArrayList();
 
-        planets.add(new Planets(ID, "Naboo",
+        Planets naboo = new Planets("Naboo",
                 EnumSet.of(TEMPERATE),
-                EnumSet.of(GRASSY_HILLS, SWAMP, FORESTS, MOUNTAINS)));
+                EnumSet.of(GRASSY_HILLS, SWAMP, FORESTS, MOUNTAINS));
+        naboo.setId(ID);
+
+        planets.add(naboo);
 
         planets.add(new Planets("Dagobah",
                 EnumSet.of(MURKY),

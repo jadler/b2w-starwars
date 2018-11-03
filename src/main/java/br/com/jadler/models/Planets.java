@@ -32,46 +32,24 @@ public class Planets {
 
     @MappedProperty
     @ApiModelProperty(notes = "The name of the planet.", required = true)
-    private String name;
+    protected String name;
 
     @ApiModelProperty(notes = "The planet's terrains type.", required = false)
-    private Collection<Terrain> terrains;
+    protected Collection<Terrain> terrains;
 
     @ApiModelProperty(notes = "The planet's climates type.", required = false)
-    private Collection<Climate> climates;
+    protected Collection<Climate> climates;
 
     @ApiModelProperty(notes = "Amount of movies this planet appears on.", required = false)
-    private Integer movies;
+    protected Integer movies;
 
     public Planets() {
     }
 
-    public Planets(String name) {
-        this(null, name, null, null, 0);
-    }
-
-    public Planets(String name, Integer movies) {
-        this(null, name, null, null, movies);
-    }
-
     public Planets(String name, Collection<Climate> climates, Collection<Terrain> terrains) {
-        this(null, name, climates, terrains, 0);
-    }
-
-    public Planets(String name, Collection<Climate> climates, Collection<Terrain> terrains, Integer movies) {
-        this(null, name, climates, terrains, movies);
-    }
-
-    public Planets(String id, String name, Collection<Climate> climates, Collection<Terrain> terrains) {
-        this(id, name, climates, terrains, 0);
-    }
-
-    public Planets(String id, String name, Collection<Climate> climates, Collection<Terrain> terrains, Integer movies) {
-        this.id = id;
         this.name = name;
         this.terrains = terrains;
         this.climates = climates;
-        this.movies = movies;
     }
 
     public String getId() {
