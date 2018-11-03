@@ -1,5 +1,6 @@
 package br.com.jadler.controller;
 
+import br.com.jadler.models.Climate;
 import static br.com.jadler.models.Climate.*;
 import br.com.jadler.models.Planets;
 import static br.com.jadler.models.Terrain.*;
@@ -50,9 +51,12 @@ public class PlanetsControllerTest {
 
         planets = new ArrayList();
 
-        planets.add(new Planets(ID, "Naboo",
+        Planets naboo = new Planets("Naboo",
                 EnumSet.of(TEMPERATE),
-                EnumSet.of(GRASSY_HILLS, SWAMP, FORESTS, MOUNTAINS)));
+                EnumSet.of(GRASSY_HILLS, SWAMP, FORESTS, MOUNTAINS));
+        naboo.setId(ID);
+
+        planets.add(naboo);
 
         planets.add(new Planets("Dagobah",
                 EnumSet.of(MURKY),
@@ -131,4 +135,31 @@ public class PlanetsControllerTest {
                 .andExpect(jsonPath("$", hasSize(2)));
     }
 
+    @Test
+    public void test_6_Movies() throws Exception {
+
+        Planets corellia = new Planets("Corellia",
+                EnumSet.of(TEMPERATE),
+                EnumSet.of(PLAINS, URBAN, HILLS, FORESTS)
+        );
+
+        mock.perform(post("/planets/")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jackson.write(corellia).getJson()))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.movies", is(0)));
+
+        Planets tatooine = new Planets("Tatooine",
+                EnumSet.of(Climate.ARID),
+                EnumSet.of(DESERTS)
+        );
+
+        mock.perform(post("/planets/")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jackson.write(tatooine).getJson()))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.movies", is(5)));
+    }
 }

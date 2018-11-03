@@ -5,7 +5,7 @@
 
     <groupId>br.com.jadler</groupId>
     <artifactId>star-wars</artifactId>
-    <version>1.1.0</version>
+    <version>1.2.0</version>
     <packaging>jar</packaging>
 
     <name>${project.build.finalName}</name>
@@ -45,9 +45,15 @@
         </dependency>
 
         <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20180813</version>
+        </dependency>
+
+        <dependency>
             <groupId>br.com.jadler</groupId>
             <artifactId>processor</artifactId>
-            <version>1.2.1</version>
+            <version>1.2.2</version>
             <scope>provided</scope>
         </dependency>
 
@@ -56,6 +62,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.vaadin.external.google</groupId>
+                    <artifactId>android-json</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
