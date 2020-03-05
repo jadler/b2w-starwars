@@ -8,9 +8,21 @@ package br.com.jadler.climate;
  */
 public enum Climate {
 
-    TEMPERATE,
-    TROPICAL,
-    FROZEN,
-    MURKY,
-    ARID;
+    ARID("Arid"),
+    FROZEN("Frozen"),
+    MURKY("Murky"),
+    TEMPERATE("Temperate"),
+    TROPICAL("Tropical");
+
+    private final String name;
+
+    private Climate(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return name;
+    }
+
 }
