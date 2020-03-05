@@ -1,9 +1,9 @@
 package br.com.jadler.controller;
 
-import br.com.jadler.models.Climate;
-import static br.com.jadler.models.Climate.*;
+import br.com.jadler.climate.Climate;
+import static br.com.jadler.climate.Climate.*;
 import br.com.jadler.models.Planets;
-import static br.com.jadler.models.Terrain.*;
+import static br.com.jadler.terrain.Terrain.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.ArrayList;
 import java.util.Collection;

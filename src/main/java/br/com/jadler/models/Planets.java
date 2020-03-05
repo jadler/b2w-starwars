@@ -1,5 +1,7 @@
 package br.com.jadler.models;
 
+import br.com.jadler.climate.Climate;
+import br.com.jadler.terrain.Terrain;
 import br.com.jadler.annotation.MappedProperty;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Collection;

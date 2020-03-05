@@ -1,4 +1,4 @@
-package br.com.jadler.models;
+package br.com.jadler.terrain;
 
 /**
  *
