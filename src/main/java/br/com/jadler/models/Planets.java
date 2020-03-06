@@ -1,27 +1,19 @@
 package br.com.jadler.models;
 
+import br.com.jadler.annotation.GenerateController;
 import br.com.jadler.annotation.MappedProperty;
+import br.com.jadler.climate.Climate;
+import br.com.jadler.terrain.Terrain;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Collection;
 import org.springframework.data.annotation.Id;
-import br.com.jadler.annotation.GenerateRepository;
-import br.com.jadler.annotation.GenerateController;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLConnection;
-import org.json.JSONObject;
 
 /**
  *
  * @since 1.0
- * @version 1.2
+ * @version 2.0
  * @author <a href="mailto:jaguar.adler@gmail.com">Jaguaraquem A. Reinaldo</a>
  */
-@GenerateRepository
 @GenerateController
 public class Planets {
 
@@ -43,83 +35,68 @@ public class Planets {
     @ApiModelProperty(notes = "Amount of movies this planet appears on.", required = false)
     protected Integer movies;
 
-    public Planets() {
-    }
-
-    public Planets(String name, Collection<Climate> climates, Collection<Terrain> terrains) {
-        this.name = name;
-        this.terrains = terrains;
-        this.climates = climates;
-    }
-
     public String getId() {
         return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public Collection<Terrain> getTerrains() {
-        return terrains;
-    }
-
-    public void setTerrains(Collection<Terrain> collection) {
-        terrains = collection;
-    }
-
-    public Collection<Climate> getClimates() {
-        return climates;
-    }
-
-    public void setClimates(Collection<Climate> collection) {
-        climates = collection;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public Collection<Terrain> getTerrains() {
+        return terrains;
+    }
+
+    public Collection<Climate> getClimates() {
+        return climates;
     }
 
     public Integer getMovies() {
-        if (movies == null && name != null && !name.isEmpty()) {
-            try {
-
-                URL url = new URL("https://swapi.co/api/planets/?format=json&search=" + name);
-                URLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.addRequestProperty("User-Agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0)");
-                conn.setUseCaches(false);
-                conn.setAllowUserInteraction(false);
-
-                InputStream is = conn.getInputStream();
-                BufferedReader br = new BufferedReader(new InputStreamReader(is));
-
-                String result = br.readLine();
-                movies = new JSONObject(result)
-                        .getJSONArray("results")
-                        .getJSONObject(0)
-                        .getJSONArray("films")
-                        .length();
-
-            } catch (IOException ex) {
-                System.err.println(ex.getMessage());
-                movies = null;
-            }
-        }
-
-        return (movies == null) ? 0 : movies;
+        return movies;
     }
 
     /**
-     * This method does nothing and is used just to avoid compilation errors
-     * since the amount of movies is returned from the https://swapi.co/api.
+     * For use with {@link PlanetsVisitor} and {@link PlanetsBuilder} only
+     *
+     * @param id
+     */
+    protected void setId(String id) {
+        this.id = id;
+    }
+
+    /**
+     * For use with {@link PlanetsVisitor} and {@link PlanetsBuilder} only
+     *
+     * @param name
+     */
+    protected void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * For use with {@link PlanetsVisitor} and {@link PlanetsBuilder} only
+     *
+     * @param collection
+     */
+    protected void setTerrains(Collection<Terrain> collection) {
+        terrains = collection;
+    }
+
+    /**
+     * For use with {@link PlanetsVisitor} and {@link PlanetsBuilder} only
+     *
+     * @param collection
+     */
+    protected void setClimates(Collection<Climate> collection) {
+        climates = collection;
+    }
+
+    /**
+     * For use with {@link PlanetsVisitor} and {@link PlanetsBuilder} only
      *
      * @param movies
      */
-    public void setMovies(Integer movies) {
-        // does nothing
+    protected void setMovies(Integer movies) {
+        this.movies = movies;
     }
 }
