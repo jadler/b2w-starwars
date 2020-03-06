@@ -8,7 +8,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.EnumSet;
-import org.slf4j.Logger;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import org.junit.Before;
@@ -17,6 +16,7 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -69,7 +69,7 @@ public class PlanetsControllerTest {
     }
 
     @Before
-    public void method() {
+    public void setUp() {
         JacksonTester.initFields(this, new ObjectMapper());
     }
 
@@ -82,7 +82,7 @@ public class PlanetsControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(jackson.write(p).getJson()))
                         .andDo(print())
-                        .andExpect(status().isOk());
+                        .andExpect(status().isCreated());
             } catch (Exception ex) {
                 log.error(ex.getLocalizedMessage());
             }
@@ -119,16 +119,14 @@ public class PlanetsControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jackson.write(hoth).getJson()))
                 .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", is(ID)))
-                .andExpect(jsonPath("$.name", is("Hoth")));
+                .andExpect(status().isNotFound());
     }
 
     @Test
     public void test_5_Delete() throws Exception {
         mock.perform(delete("/planets/id/" + ID))
                 .andDo(print())
-                .andExpect(status().isOk());
+                .andExpect(status().isNoContent());
 
         mock.perform(get("/planets/"))
                 .andExpect(status().isOk())
@@ -147,7 +145,7 @@ public class PlanetsControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jackson.write(corellia).getJson()))
                 .andDo(print())
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.movies", is(0)));
 
         Planets tatooine = new Planets("Tatooine",
@@ -159,7 +157,7 @@ public class PlanetsControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jackson.write(tatooine).getJson()))
                 .andDo(print())
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.movies", is(5)));
     }
 }
