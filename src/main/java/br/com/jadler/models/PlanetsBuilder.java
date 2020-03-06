@@ -13,7 +13,8 @@ import java.util.Arrays;
 import java.util.Collection;
 
 /**
- *
+ * @since 2.0
+ * @version 2.0
  * @author <a href="mailto:jaguar.adler@gmail.com">Jaguaraquem A. Reinaldo</a>
  */
 public class PlanetsBuilder {
