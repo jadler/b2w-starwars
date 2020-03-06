@@ -1,13 +1,27 @@
 package br.com.jadler.controller;
 
-import br.com.jadler.climate.Climate;
-import static br.com.jadler.climate.Climate.*;
+import static br.com.jadler.climate.Climate.ARID;
+import static br.com.jadler.climate.Climate.FROZEN;
+import static br.com.jadler.climate.Climate.MURKY;
+import static br.com.jadler.climate.Climate.TEMPERATE;
 import br.com.jadler.models.Planets;
-import static br.com.jadler.terrain.Terrain.*;
+import br.com.jadler.models.PlanetsBuilder;
+import static br.com.jadler.terrain.Terrain.DESERTS;
+import static br.com.jadler.terrain.Terrain.FORESTS;
+import static br.com.jadler.terrain.Terrain.GRASSLANDS;
+import static br.com.jadler.terrain.Terrain.GRASSY_HILLS;
+import static br.com.jadler.terrain.Terrain.HILLS;
+import static br.com.jadler.terrain.Terrain.ICE_CAVES;
+import static br.com.jadler.terrain.Terrain.JUNGLES;
+import static br.com.jadler.terrain.Terrain.MOUNTAINS;
+import static br.com.jadler.terrain.Terrain.MOUNTAIN_RANGES;
+import static br.com.jadler.terrain.Terrain.PLAINS;
+import static br.com.jadler.terrain.Terrain.SWAMP;
+import static br.com.jadler.terrain.Terrain.TUNDRA;
+import static br.com.jadler.terrain.Terrain.URBAN;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.EnumSet;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import org.junit.Before;
@@ -51,21 +65,21 @@ public class PlanetsControllerTest {
 
         planets = new ArrayList();
 
-        Planets naboo = new Planets("Naboo",
-                EnumSet.of(TEMPERATE),
-                EnumSet.of(GRASSY_HILLS, SWAMP, FORESTS, MOUNTAINS));
-        naboo.setId(ID);
+        planets.add(new PlanetsBuilder("Naboo")
+                .id(ID)
+                .climates(TEMPERATE)
+                .terrains(GRASSY_HILLS, SWAMP, FORESTS, MOUNTAINS)
+                .build());
 
-        planets.add(naboo);
+        planets.add(new PlanetsBuilder("Dagobah")
+                .climates(MURKY)
+                .terrains(SWAMP, JUNGLES)
+                .build());
 
-        planets.add(new Planets("Dagobah",
-                EnumSet.of(MURKY),
-                EnumSet.of(SWAMP, JUNGLES)));
-
-        planets.add(new Planets("Alderaan",
-                EnumSet.of(TEMPERATE),
-                EnumSet.of(GRASSLANDS, MOUNTAINS)));
-
+        planets.add(new PlanetsBuilder("Alderaan")
+                .climates(TEMPERATE)
+                .terrains(GRASSLANDS, MOUNTAINS)
+                .build());
     }
 
     @Before
@@ -111,9 +125,10 @@ public class PlanetsControllerTest {
     @Test
     public void test_4_ModifyById() throws Exception {
 
-        Planets hoth = new Planets("Hoth",
-                EnumSet.of(FROZEN),
-                EnumSet.of(TUNDRA, ICE_CAVES, MOUNTAIN_RANGES));
+        Planets hoth = new PlanetsBuilder("Hoth")
+                .climates(FROZEN)
+                .terrains(TUNDRA, ICE_CAVES, MOUNTAIN_RANGES)
+                .build();
 
         mock.perform(put("/planets/id/" + ID)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -136,10 +151,10 @@ public class PlanetsControllerTest {
     @Test
     public void test_6_Movies() throws Exception {
 
-        Planets corellia = new Planets("Corellia",
-                EnumSet.of(TEMPERATE),
-                EnumSet.of(PLAINS, URBAN, HILLS, FORESTS)
-        );
+        Planets corellia = new PlanetsBuilder("Corellia")
+                .climates(TEMPERATE)
+                .terrains(PLAINS, URBAN, HILLS, FORESTS)
+                .build();
 
         mock.perform(post("/planets/")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -148,10 +163,10 @@ public class PlanetsControllerTest {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.movies", is(0)));
 
-        Planets tatooine = new Planets("Tatooine",
-                EnumSet.of(Climate.ARID),
-                EnumSet.of(DESERTS)
-        );
+        Planets tatooine = new PlanetsBuilder("Tatooine")
+                .climates(ARID)
+                .terrains(DESERTS)
+                .build();
 
         mock.perform(post("/planets/")
                 .contentType(MediaType.APPLICATION_JSON)
