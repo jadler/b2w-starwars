@@ -1,13 +1,10 @@
 package br.com.jadler.models;
 
+import br.com.jadler.annotation.GenerateController;
+import br.com.jadler.annotation.MappedProperty;
 import br.com.jadler.climate.Climate;
 import br.com.jadler.terrain.Terrain;
-import br.com.jadler.annotation.MappedProperty;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.Collection;
-import org.springframework.data.annotation.Id;
-import br.com.jadler.annotation.GenerateRepository;
-import br.com.jadler.annotation.GenerateController;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,7 +12,9 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.Collection;
 import org.json.JSONObject;
+import org.springframework.data.annotation.Id;
 
 /**
  *
@@ -23,7 +22,6 @@ import org.json.JSONObject;
  * @version 1.2
  * @author <a href="mailto:jaguar.adler@gmail.com">Jaguaraquem A. Reinaldo</a>
  */
-@GenerateRepository
 @GenerateController
 public class Planets {
 
